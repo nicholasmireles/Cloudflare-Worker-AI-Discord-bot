@@ -8,5 +8,5 @@ parserOptions:
 rules: {
   'max-len': ["error", { "code": 180 }],
   'require-jsdoc': 1,
-  'new-cap': 0
+  'new-cap': 1
 }
