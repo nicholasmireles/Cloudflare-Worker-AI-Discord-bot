@@ -1,4 +1,4 @@
-name = "discord-bot"
+name = "discord-nickbot"
 main = "./src/server.js"
 compatibility_date="2023-05-18"
 
