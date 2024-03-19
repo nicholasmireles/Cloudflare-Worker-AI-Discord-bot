@@ -2,15 +2,15 @@
  * The core server that runs on a Cloudflare worker.
  */
 
-import { Router } from 'itty-router';
+import {Router} from 'itty-router';
 import {
   InteractionResponseType,
   InteractionType,
   verifyKey,
 } from 'discord-interactions';
-import { AWW_COMMAND, INVITE_COMMAND } from './commands.js';
-import { getCuteUrl } from './reddit.js';
-import { InteractionResponseFlags } from 'discord-interactions';
+import {AWW_COMMAND, INVITE_COMMAND} from './commands.js';
+import {getCuteUrl} from './reddit.js';
+import {InteractionResponseFlags} from 'discord-interactions';
 
 class JsonResponse extends Response {
   constructor(body, init) {
@@ -39,12 +39,12 @@ router.get('/', (request, env) => {
  * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object
  */
 router.post('/', async (request, env) => {
-  const { isValid, interaction } = await server.verifyDiscordRequest(
-    request,
-    env,
+  const {isValid, interaction} = await server.verifyDiscordRequest(
+      request,
+      env,
   );
   if (!isValid || !interaction) {
-    return new Response('Bad request signature.', { status: 401 });
+    return new Response('Bad request signature.', {status: 401});
   }
 
   if (interaction.type === InteractionType.PING) {
@@ -79,14 +79,14 @@ router.post('/', async (request, env) => {
         });
       }
       default:
-        return new JsonResponse({ error: 'Unknown Type' }, { status: 400 });
+        return new JsonResponse({error: 'Unknown Type'}, {status: 400});
     }
   }
 
   console.error('Unknown Type');
-  return new JsonResponse({ error: 'Unknown Type' }, { status: 400 });
+  return new JsonResponse({error: 'Unknown Type'}, {status: 400});
 });
-router.all('*', () => new Response('Not Found.', { status: 404 }));
+router.all('*', () => new Response('Not Found.', {status: 404}));
 
 async function verifyDiscordRequest(request, env) {
   const signature = request.headers.get('x-signature-ed25519');
@@ -97,15 +97,15 @@ async function verifyDiscordRequest(request, env) {
     timestamp &&
     verifyKey(body, signature, timestamp, env.DISCORD_PUBLIC_KEY);
   if (!isValidRequest) {
-    return { isValid: false };
+    return {isValid: false};
   }
 
-  return { interaction: JSON.parse(body), isValid: true };
+  return {interaction: JSON.parse(body), isValid: true};
 }
 
 const server = {
   verifyDiscordRequest: verifyDiscordRequest,
-  fetch: async function (request, env) {
+  fetch: async function(request, env) {
     return router.handle(request, env);
   },
 };

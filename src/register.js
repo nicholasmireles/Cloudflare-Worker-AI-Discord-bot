@@ -1,4 +1,4 @@
-import { AWW_COMMAND, INVITE_COMMAND } from './commands.js';
+import {AWW_COMMAND, INVITE_COMMAND} from './commands.js';
 import dotenv from 'dotenv';
 import process from 'node:process';
 
@@ -8,7 +8,7 @@ import process from 'node:process';
  * to be run once.
  */
 
-dotenv.config({ path: '.dev.vars' });
+dotenv.config({path: '.dev.vars'});
 
 const token = process.env.DISCORD_TOKEN;
 const applicationId = process.env.DISCORD_APPLICATION_ID;
@@ -18,7 +18,7 @@ if (!token) {
 }
 if (!applicationId) {
   throw new Error(
-    'The DISCORD_APPLICATION_ID environment variable is required.',
+      'The DISCORD_APPLICATION_ID environment variable is required.',
   );
 }
 
@@ -31,7 +31,7 @@ const url = `https://discord.com/api/v10/applications/${applicationId}/commands`
 const response = await fetch(url, {
   headers: {
     'Content-Type': 'application/json',
-    Authorization: `Bot ${token}`,
+    'Authorization': `Bot ${token}`,
   },
   method: 'PUT',
   body: JSON.stringify([AWW_COMMAND, INVITE_COMMAND]),

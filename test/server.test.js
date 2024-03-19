@@ -1,14 +1,14 @@
-import { expect } from 'chai';
-import { describe, it, beforeEach, afterEach } from 'mocha';
+import {expect} from 'chai';
+import {describe, it, beforeEach, afterEach} from 'mocha';
 import {
   InteractionResponseType,
   InteractionType,
   InteractionResponseFlags,
 } from 'discord-interactions';
-import { AWW_COMMAND, INVITE_COMMAND } from '../src/commands.js';
+import {AWW_COMMAND, INVITE_COMMAND} from '../src/commands.js';
 import sinon from 'sinon';
 import server from '../src/server.js';
-import { redditUrl } from '../src/reddit.js';
+import {redditUrl} from '../src/reddit.js';
 
 describe('Server', () => {
   describe('GET /', () => {
@@ -17,7 +17,7 @@ describe('Server', () => {
         method: 'GET',
         url: new URL('/', 'http://discordo.example'),
       };
-      const env = { DISCORD_APPLICATION_ID: '123456789' };
+      const env = {DISCORD_APPLICATION_ID: '123456789'};
 
       const response = await server.fetch(request, env);
       const body = await response.text();
@@ -81,19 +81,19 @@ describe('Server', () => {
 
       // mock the fetch call to reddit
       const result = sinon
-        // eslint-disable-next-line no-undef
-        .stub(global, 'fetch')
-        .withArgs(redditUrl)
-        .resolves({
-          status: 200,
-          ok: true,
-          json: sinon.fake.resolves({ data: { children: [] } }),
-        });
+      // eslint-disable-next-line no-undef
+          .stub(global, 'fetch')
+          .withArgs(redditUrl)
+          .resolves({
+            status: 200,
+            ok: true,
+            json: sinon.fake.resolves({data: {children: []}}),
+          });
 
       const response = await server.fetch(request, env);
       const body = await response.json();
       expect(body.type).to.equal(
-        InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
       );
       expect(result.calledOnce);
     });
@@ -123,10 +123,10 @@ describe('Server', () => {
       const response = await server.fetch(request, env);
       const body = await response.json();
       expect(body.type).to.equal(
-        InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
       );
       expect(body.data.content).to.include(
-        'https://discord.com/oauth2/authorize?client_id=123456789&scope=applications.commands',
+          'https://discord.com/oauth2/authorize?client_id=123456789&scope=applications.commands',
       );
       expect(body.data.flags).to.equal(InteractionResponseFlags.EPHEMERAL);
     });
