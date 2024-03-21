@@ -66,13 +66,6 @@ describe('Server', () => {
         },
       };
 
-      const request = {
-        method: 'POST',
-        url: new URL('/', 'http://discordo.example'),
-      };
-
-      const env = {};
-
       verifyDiscordRequestStub.resolves({
         isValid: true,
         interaction: interaction,
