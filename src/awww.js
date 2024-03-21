@@ -1,6 +1,6 @@
 import Cloudflare from 'cloudflare';
 import pkg from 'lodash';
-const {sample} = pkg; 
+const {sample} = pkg;
 
 /**
  * Choose a random image from the repository and provide its url.
