@@ -19,6 +19,7 @@
   "author": "Justin Beckwith <justin.beckwith@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@cloudflare/ai": "^1.1.0",
     "cloudflare": "^3.0.0-beta.9",
     "discord-interactions": "^3.4.0",
     "itty-router": "^4.0.13",
