@@ -15,5 +15,5 @@ export const INVITE_COMMAND = {
 
 export const CHAT_COMMAND = {
   name: 'chat',
-  description: 'Chat with the Llama 2 model.'
-}
+  description: 'Chat with the Llama 2 model.',
+};

@@ -8,11 +8,14 @@ import {
   InteractionType,
   verifyKey,
 } from 'discord-interactions';
-import {AWW_COMMAND, INVITE_COMMAND} from './commands.js';
+import {AWW_COMMAND, INVITE_COMMAND, CHAT_COMMAND} from './commands.js';
 import {getCuteUrl} from './reddit.js';
+import {getChat} from './chat.js';
 import {InteractionResponseFlags} from 'discord-interactions';
 
+// eslint-disable-next-line require-jsdoc
 class JsonResponse extends Response {
+  // eslint-disable-next-line require-jsdoc
   constructor(body, init) {
     const jsonBody = JSON.stringify(body);
     init = init || {
@@ -24,6 +27,7 @@ class JsonResponse extends Response {
   }
 }
 
+// eslint-disable-next-line new-cap
 const router = Router();
 
 /**
@@ -78,6 +82,13 @@ router.post('/', async (request, env) => {
           },
         });
       }
+      case CHAT_COMMAND.name.toLowerCase():
+        const response = getChat();
+        return new JsonResponse({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: {
+            content: response,
+          }});
       default:
         return new JsonResponse({error: 'Unknown Type'}, {status: 400});
     }
@@ -88,6 +99,7 @@ router.post('/', async (request, env) => {
 });
 router.all('*', () => new Response('Not Found.', {status: 404}));
 
+// eslint-disable-next-line require-jsdoc
 async function verifyDiscordRequest(request, env) {
   const signature = request.headers.get('x-signature-ed25519');
   const timestamp = request.headers.get('x-signature-timestamp');
