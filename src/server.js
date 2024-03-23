@@ -8,6 +8,7 @@ import {
   InteractionType,
   verifyKey,
 } from 'discord-interactions';
+
 import {AWW_COMMAND, INVITE_COMMAND, CHAT_COMMAND} from './commands.js';
 import {getCuteUrl} from './reddit.js';
 import {getChat} from './chat.js';
@@ -63,7 +64,7 @@ router.post('/', async (request, env) => {
     // Most user commands will come as `APPLICATION_COMMAND`.
     switch (interaction.data.name.toLowerCase()) {
       case AWW_COMMAND.name.toLowerCase(): {
-        const cuteUrl = await getCuteUrl();
+        const cuteUrl = await getCuteUrl(env);
         return new JsonResponse({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
           data: {
