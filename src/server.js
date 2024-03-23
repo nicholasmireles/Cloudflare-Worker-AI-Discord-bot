@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /**
  * The core server that runs on a Cloudflare worker.
  */
@@ -10,7 +11,7 @@ import {
 } from 'discord-interactions';
 
 import {AWW_COMMAND, INVITE_COMMAND, CHAT_COMMAND} from './commands.js';
-import {getChat} from './chat.js';
+import {sendChat} from './chat.js';
 import {InteractionResponseFlags} from 'discord-interactions';
 
 // eslint-disable-next-line require-jsdoc
@@ -83,7 +84,7 @@ router.post('/', async (request, env) => {
         });
       }
       case CHAT_COMMAND.name.toLowerCase():
-        const response = getChat();
+        const response = sendChat('Introduce yourself.');
         return new JsonResponse({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
           data: {
