@@ -1,4 +1,5 @@
-import {AWW_COMMAND, INVITE_COMMAND} from './commands.js';
+/* eslint-disable linebreak-style */
+import {AWW_COMMAND, INVITE_COMMAND, CHAT_COMMAND} from './commands.js';
 import dotenv from 'dotenv';
 import process from 'node:process';
 
@@ -34,7 +35,7 @@ const response = await fetch(url, {
     'Authorization': `Bot ${token}`,
   },
   method: 'PUT',
-  body: JSON.stringify([AWW_COMMAND, INVITE_COMMAND]),
+  body: JSON.stringify([AWW_COMMAND, INVITE_COMMAND, CHAT_COMMAND]),
 });
 
 if (response.ok) {

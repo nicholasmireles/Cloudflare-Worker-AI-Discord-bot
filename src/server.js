@@ -10,7 +10,6 @@ import {
 } from 'discord-interactions';
 
 import {AWW_COMMAND, INVITE_COMMAND, CHAT_COMMAND} from './commands.js';
-import {getCuteUrl} from './reddit.js';
 import {getChat} from './chat.js';
 import {InteractionResponseFlags} from 'discord-interactions';
 
