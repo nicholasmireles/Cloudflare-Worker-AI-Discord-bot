@@ -16,5 +16,5 @@ export async function sendChat(prompt) {
   ];
   const response = await ai.run('@cf/meta/llama-2-7b-chat-int8', {messages});
 
-  return Response.json(response);
+  return response?.response;
 }
