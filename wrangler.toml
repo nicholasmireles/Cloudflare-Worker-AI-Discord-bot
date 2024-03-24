@@ -2,7 +2,5 @@ name = "discord-bot"
 main = "./src/server.js"
 compatibility_date="2023-05-18"
 
-# [secrets]
-# DISCORD_TOKEN
-# DISCORD_PUBLIC_KEY
-# DISCORD_APPLICATION_ID
+[ai]
+binding = "AI" # i.e. available in your Worker on env.AI
