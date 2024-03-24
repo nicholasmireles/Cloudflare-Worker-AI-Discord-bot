@@ -32,8 +32,8 @@ class JsonResponse extends Response {
 const router = Router();
 
 async function deferLlm(env, interaction) {
-  response = await sendChat(interaction.data.options[0].value, env.AI);
-  const response = fetch(`https://discord.com/api/v10/webhooks/${env.DISCORD_APPLICATION_ID}/${interaction.token}/messages/@original`, {method: 'PATCH', body: response});
+  const llm_response = await sendChat(interaction.data.options[0].value, env.AI);
+  const response = fetch(`https://discord.com/api/v10/webhooks/${env.DISCORD_APPLICATION_ID}/${interaction.token}/messages/@original`, {method: 'PATCH', body: llm_response});
 }
 
 /**
