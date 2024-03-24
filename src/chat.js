@@ -6,13 +6,8 @@ import {Ai} from '@cloudflare/ai';
  * @return {Promise<string>} The generated response from the model.
  */
 
-export interface Env {
-  // If you set another name in wrangler.toml as the value for 'binding',
-  // replace "AI" with the variable name you defined.
-  AI: any;
-}
 export async function sendChat(prompt) {
-  const ai = new Ai(env.Ai);
+  const ai = new Ai("AI");
   const messages = [
     {role: 'system', content: 'You are a friendly assistant to your Owner, Nick. He may or may not be the person with whom you are interacting.'},
     {
