@@ -84,7 +84,7 @@ router.post('/', async (request, env) => {
         });
       }
       case CHAT_COMMAND.name.toLowerCase():
-        const response = sendChat('Introduce yourself.');
+        const response = await sendChat('Introduce yourself.');
         return new JsonResponse({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
           data: {
