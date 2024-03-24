@@ -31,6 +31,11 @@ class JsonResponse extends Response {
 // eslint-disable-next-line new-cap
 const router = Router();
 
+async function deferLlm(env, interaction) {
+  response = await sendChat(interaction.data.options[0].value, env.AI);
+  const response = fetch(`https://discord.com/api/v10/webhooks/${env.DISCORD_APPLICATION_ID}/${interaction.token}/messages/@original`, {method: 'PATCH', body: response});
+}
+
 /**
  * A simple :wave: hello page to verify the worker is working.
  */
@@ -43,7 +48,7 @@ router.get('/', (request, env) => {
  * include a JSON payload described here:
  * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object
  */
-router.post('/', async (request, env) => {
+router.post('/', async (request, env, context) => {
   const {isValid, interaction} = await server.verifyDiscordRequest(
       request,
       env,
@@ -84,12 +89,11 @@ router.post('/', async (request, env) => {
         });
       }
       case CHAT_COMMAND.name.toLowerCase():
-        console.log(interaction);
-        const response = await sendChat(interaction.data.options[0].value, env.AI);
+        context.waitUntil(deferLlm(env, interaction));
         return new JsonResponse({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
           data: {
-            content: response,
+            content: '',
           }});
       default:
         return new JsonResponse({error: 'Unknown Type'}, {status: 400});
@@ -119,8 +123,8 @@ async function verifyDiscordRequest(request, env) {
 
 const server = {
   verifyDiscordRequest: verifyDiscordRequest,
-  fetch: async function(request, env) {
-    return router.handle(request, env);
+  fetch: async function(request, env, ctx) {
+    return router.handle(request, env, ctx);
   },
 };
 
