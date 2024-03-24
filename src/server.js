@@ -85,7 +85,7 @@ router.post('/', async (request, env) => {
       }
       case CHAT_COMMAND.name.toLowerCase():
         console.log(interaction);
-        const response = await sendChat(interaction, env.AI);
+        const response = await sendChat(interaction.data.options[0].value, env.AI);
         return new JsonResponse({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
           data: {
