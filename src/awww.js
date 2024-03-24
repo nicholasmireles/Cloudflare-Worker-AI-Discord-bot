@@ -4,7 +4,7 @@ const {sample} = pkg;
 
 /**
  * Choose a random image from the repository and provide its url.
- * @param {Object} env API token for CloudFlare.
+ * @param {Object} env Environment object for the Worker.
  * @return {Promise<string>} The url of an image or video which is cute.
  */
 export async function getCuteUrl(env) {
