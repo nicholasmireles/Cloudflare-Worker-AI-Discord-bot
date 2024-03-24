@@ -10,7 +10,7 @@ import {Ai} from '@cloudflare/ai';
 export async function sendChat(prompt, binding) {
   const ai = new Ai(binding);
   const messages = [
-    {role: 'system', content: 'You are a friendly assistant to your Owner, Nick. He may or may not be the person with whom you are interacting.'},
+    {role: 'system', content: 'You are NickBot, a friendly assistant to your owner, Nick and his friends. He may or may not be the person with whom you are interacting.'},
     {
       role: 'user',
       content: prompt,

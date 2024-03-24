@@ -16,4 +16,10 @@ export const INVITE_COMMAND = {
 export const CHAT_COMMAND = {
   name: 'chat',
   description: 'Chat with the Llama 2 model.',
+  options: [{
+    type: 3,
+    name: "prompt",
+    description: "What do you want to say Nick Bot?",
+    required: true
+  }]
 };
