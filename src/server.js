@@ -32,10 +32,23 @@ class JsonResponse extends Response {
 // eslint-disable-next-line new-cap
 const router = Router();
 
+/**
+ * Side process to make the actual request to the LLM, wait for the response, and update the original message.
+ * @param {object} env The processing environment for the worker.
+ * @param {object} interaction The interaction received by the server.
+ */
 async function deferLlm(env, interaction) {
   const llmResponse = await sendChat(interaction.data.options[0].value, env.AI);
-  fetch(`https://discord.com/api/v10/webhooks/${env.DISCORD_APPLICATION_ID}/${interaction.token}/messages/@original`, {method: 'PATCH', body: llmResponse});
+  const response = fetch(
+      `https://discord.com/api/v10/webhooks/${env.DISCORD_APPLICATION_ID}/${interaction.token}/messages/@original`,
+      {method: 'PATCH',
+        body: {
+          message: llmResponse,
+        }},
+  );
+  console.log(response);
 }
+
 
 /**
  * A simple :wave: hello page to verify the worker is working.
