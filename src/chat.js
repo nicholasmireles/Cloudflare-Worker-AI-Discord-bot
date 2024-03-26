@@ -13,6 +13,7 @@ export async function sendChat(interaction, binding) {
     roeler: 'Rachel',
   };
   const ai = new Ai(binding);
+  console.log(JSON.stringify(interaction));
   const username = usernameMappings[interaction.user.username] ?? usernameMappings[interaction.user.global_name] ?? interaction.user.username;
   const messages = [
     {role: 'system',
