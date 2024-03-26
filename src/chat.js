@@ -7,13 +7,19 @@ import {Ai} from '@cloudflare/ai';
  * @return {Promise<string>} The generated response from the model.
  */
 export async function sendChat(interaction, binding) {
+  const usernameMappings = {
+    rvngizswt: 'Nick',
+    brosevelte: 'Carter',
+    roeler: 'Rachel',
+  };
   const ai = new Ai(binding);
+  const username = usernameMappings[interaction.member.username] ?? usernameMappings[interaction.member.global_name] ?? interaction.member.username;
   const messages = [
     {role: 'system',
-      content: 'You are NickBot, a friendly assistant to your owner, Nick and his friends. He may or may not be the person with whom you are interacting.',
+      content: 'You are NickBot, a friendly Discord bot assistant to your owner, Nick and his friends.',
     },
-    {role: 'assistant',
-      content: `You are talking to ${interaction.member}`,
+    {role: 'system',
+      content: `You are talking to ${username}`,
     },
     {
       role: 'user',
