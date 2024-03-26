@@ -41,7 +41,12 @@ async function deferLlm(env, interaction) {
   const llmResponse = await sendChat(interaction.data.options[0].value, env.AI);
   const response = await fetch(
       `https://discord.com/api/v10/webhooks/${env.DISCORD_APPLICATION_ID}/${interaction.token}`,
-      {method: 'POST',
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bot ${env.DISCORD_TOKEN}`,
+        },
+        method: 'POST',
         body: {
           content: llmResponse,
         }},
