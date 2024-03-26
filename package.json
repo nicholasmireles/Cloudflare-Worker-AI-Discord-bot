@@ -1,6 +1,6 @@
 {
   "name": "discord-bot",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "A simple discord bot that uses intents to post pictures from r/aww",
   "type": "module",
   "private": true,
