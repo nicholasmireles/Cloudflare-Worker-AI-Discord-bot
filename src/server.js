@@ -46,7 +46,8 @@ async function deferLlm(env, interaction) {
           content: llmResponse,
         }},
   );
-  console.log(response);
+  console.log(response.status);
+  console.log(await response.json());
 }
 
 
