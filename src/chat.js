@@ -13,7 +13,7 @@ export async function sendChat(interaction, binding) {
     roeler: 'Rachel',
   };
   const ai = new Ai(binding);
-  const username = usernameMappings[interaction.member.username] ?? usernameMappings[interaction.member.global_name] ?? interaction.member.username;
+  const username = usernameMappings[interaction.user.username] ?? usernameMappings[interaction.user.global_name] ?? interaction.user.username;
   const messages = [
     {role: 'system',
       content: 'You are NickBot, a friendly Discord bot assistant to your owner, Nick and his friends.',
@@ -26,8 +26,6 @@ export async function sendChat(interaction, binding) {
       content: interaction.data.options[0].value,
     },
   ];
-  console.log(messages);
-  console.log(interaction?.member);
   const response = await ai.run('@cf/meta/llama-2-7b-chat-int8', {messages});
 
   return response?.response;
