@@ -38,7 +38,7 @@ const router = Router();
  * @param {object} interaction The interaction received by the server.
  */
 async function deferLlm(env, interaction) {
-  const llmResponse = await sendChat(interaction.data.options[0].value, env.AI);
+  const llmResponse = await sendChat(interaction, env.AI);
   const response = await fetch(
       `https://discord.com/api/v10/webhooks/${env.DISCORD_APPLICATION_ID}/${interaction.token}`,
       {
