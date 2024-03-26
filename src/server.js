@@ -33,7 +33,7 @@ class JsonResponse extends Response {
 const router = Router();
 
 /**
- * Side process to make the actual request to the LLM, wait for the response, and update the original message.
+ * Callback to make the actual request to the LLM, wait for the response, and update the original message.
  * @param {object} env The processing environment for the worker.
  * @param {object} interaction The interaction received by the server.
  */
