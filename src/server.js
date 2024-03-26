@@ -47,9 +47,9 @@ async function deferLlm(env, interaction) {
           'Authorization': `Bot ${env.DISCORD_TOKEN}`,
         },
         method: 'POST',
-        body: {
+        body: JSON.stringify({
           content: llmResponse,
-        }},
+        })},
   );
   console.log(response.status);
   console.log(await response.json());
