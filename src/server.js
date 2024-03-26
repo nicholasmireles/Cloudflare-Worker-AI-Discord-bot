@@ -41,7 +41,7 @@ async function deferLlm(env, interaction) {
   const llmResponse = await sendChat(interaction.data.options[0].value, env.AI);
   const response = await fetch(
       `https://discord.com/api/v10/webhooks/${env.DISCORD_APPLICATION_ID}/${interaction.token}/messages/@original`,
-      {method: 'PATCH',
+      {method: 'POST',
         body: {
           content: llmResponse,
         }},
@@ -106,7 +106,7 @@ router.post('/', async (request, env, context) => {
       case CHAT_COMMAND.name.toLowerCase():
         context.waitUntil(deferLlm(env, interaction));
         return new JsonResponse({
-          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          type: InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
           data: {
             content: '',
           }});
